@@ -6,3 +6,9 @@ ffmpeg -i test7.mp4 -vf " crop=in_w-150:in_h:0:0 , lenscorrection=cx=0.5:cy=0.5:
 
 ffmpeg -i crop_in_w_Pad4.mp4  -i crop_in_w_Pad5.mp4 -filter_complex "hstack,format=yuv420p" -c:v libx264  hstack-last1.mp4
 //dernière étape pour stack les 2 vidéos générées.
+
+   ffmpeg -i test7.mp4 -filter_complex \
+       "[0]crop=in_w-15:in_h:15:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022 [right];\
+       [0]crop=in_w-15:in_h:0:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022[left];\
+        [left][right]hstack[sbs]"  -map "[sbs]" -map 0:a? hstack_last6.mp4
+ //les 3 commandes en une seule "15":odd pixel number. 
