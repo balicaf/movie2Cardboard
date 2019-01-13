@@ -1,0 +1,8 @@
+ffmpeg -i test7.mp4 -vf " crop=in_w-150:in_h:150:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022 "  -c:a copy  crop_in_w_Pad4.mp4
+//première vidéo pour l’oeil droit.
+
+ffmpeg -i test7.mp4 -vf " crop=in_w-150:in_h:0:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022 "  -c:a copy  crop_in_w_Pad5.mp4
+//deuxième vidéo pour l’oeil gauche.
+
+ffmpeg -i crop_in_w_Pad4.mp4  -i crop_in_w_Pad5.mp4 -filter_complex "hstack,format=yuv420p" -c:v libx264  hstack-last1.mp4
+//dernière étape pour stack les 2 vidéos générées.
