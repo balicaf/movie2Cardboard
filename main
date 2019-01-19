@@ -1,14 +1,28 @@
+-------First Idea-----------
+
 ffmpeg -i test7.mp4 -vf " crop=in_w-150:in_h:150:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022 "  -c:a copy  crop_in_w_Pad4.mp4
-//première vidéo pour l’oeil droit.
+//right eye frame.
 
 ffmpeg -i test7.mp4 -vf " crop=in_w-150:in_h:0:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022 "  -c:a copy  crop_in_w_Pad5.mp4
-//deuxième vidéo pour l’oeil gauche.
+//left eye frame.
 
 ffmpeg -i crop_in_w_Pad4.mp4  -i crop_in_w_Pad5.mp4 -filter_complex "hstack,format=yuv420p" -c:v libx264  hstack-last1.mp4
-//dernière étape pour stack les 2 vidéos générées.
+//stack the 2 frames.
 
+-------second idea----------
    ffmpeg -i test7.mp4 -filter_complex \
        "[0]crop=in_w-15:in_h:15:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022 [right];\
        [0]crop=in_w-15:in_h:0:0 , lenscorrection=cx=0.5:cy=0.5:k1=0.227:k2=0.022[left];\
         [left][right]hstack[sbs]"  -map "[sbs]" -map 0:a? hstack_last6.mp4
- //les 3 commandes en une seule "15":odd pixel number. 
+ //one command,  "15":odd pixel number to force different image for each eyes. 
+ 
+ -------better program-----------
+ ffmpeg -i 50.mkv -i x.png -filter_complex \
+ "[0]lenscorrection=cx=0.5:cy=0.5:k1=0.167:k2=0.012,\
+ split=2[tmp1][tmp2];\
+[tmp1]crop=iw*(1-0.10)+1:ih-1:0.05*iw-8:0,scale=1920:-2[right];\
+[tmp2]crop=iw*(1-0.10)+1:ih-1:0.05*iw+8+1:1,scale=1920:-2[left];\
+[left][right]hstack[c];[1]crop=iw:ih-960:0:480[1bis];\
+ [c][1bis]overlay=shortest=0"  -c:v libx265 -preset fast -crf 11 63SBS.mkv
+ 
+
