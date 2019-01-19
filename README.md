@@ -15,7 +15,9 @@ Motivation:
 
 How does it work?
   -Curve the video with your k1 k2 cardboard lens coefficient.
+  
   -Create two 1080p streams from slightly cropped input (pixel shifting should give different information to each eyes).
+  
   -Stack it and overlay a black/transparent mask to hide green pixels.
  
 what's missing: 
