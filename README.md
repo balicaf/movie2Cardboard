@@ -14,6 +14,7 @@ Motivation:
   https://play.google.com/store/apps/details?id=com.VaRs.VRPlayerPRO
 
 How does it work?
+
   -Curve the video with your k1 k2 cardboard lens coefficient.
   
   -Create two 1080p streams from slightly cropped input (pixel shifting should give different information to each eyes).
