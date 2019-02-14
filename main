@@ -25,4 +25,12 @@ ffmpeg -i crop_in_w_Pad4.mp4  -i crop_in_w_Pad5.mp4 -filter_complex "hstack,form
 [left][right]hstack[c];[1]crop=iw:ih-960:0:480[1bis];\
  [c][1bis]overlay=shortest=0"  -c:v libx265 -preset fast -crf 11 63SBS.mkv
  
-
+  -------7.1->stereo-----------
+ 
+ffmpeg -i movie.mkv -i x.png -filter_complex \
+ "[0]lenscorrection=cx=0.5:cy=0.5:k1=0.167:k2=0.012,\
+ split=2[tmp1][tmp2];\
+[tmp1]crop=iw*(1-0.10)+1:ih-1:0.05*iw-8:0,scale=1920:-2[right];\
+[tmp2]crop=iw*(1-0.10)+1:ih-1:0.05*iw+8+1:1,scale=1920:-2[left];\
+[left][right]hstack[c];[1]crop=iw:ih-960:0:480[1bis];\
+ [c][1bis]overlay=shortest=0"  -c:v libx265 -preset fast -crf 11 -c:a libfdk_aac -ac 2 movieVR.mkv
