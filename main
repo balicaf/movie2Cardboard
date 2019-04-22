@@ -56,3 +56,16 @@ ffmpeg -i movie.mkv -i x.png -filter_complex \
 [left][right]hstack[c];[1]crop=iw:ih-960:0:480[1bis];\
  [c][1bis]overlay=shortest=0"  -c:v libx265 -preset medium \
  -crf 14 -pix_fmt yuv420p10le -c:a libfdk_aac -ac 2 movieVR.mkv
+ 
+ 
+ 
+ 
+ 
+ ffmpeg -ss 01:06:23 -t 00:00:30 -i *.mkv -filter_complex \
+"[0]format=gbrp10le, lenscorrection=cx=0.5:cy=0.5:k1=0.05:k2=0.06,format=yuv420p10le,\
+split=2[tmp1][tmp2];\
+[tmp1]crop=iw*(1-0.025*2)+1:ih-1:iw*(0.025-0.01):0,scale=1920:-2[right];\
+[tmp2]crop=iw*(1-0.025*2)+1:ih-1:iw*(0.025+0.01):1,scale=1920:-2[left];\
+[left][right]hstack" -c:v libx265\
+ -preset medium \
+ -crf 13 -pix_fmt yuv420p10le -c:a aac -ac 2 *.mkv
