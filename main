@@ -96,3 +96,8 @@ for i in *.mkv;
  [left][right]hstack" -c:v libx264 -crf 9 -preset ultrafast \
  "sbs/$name-sbs.mkv" 
 done
+
+
+--just tu change from yuv444
+ffmpeg -i priseVideoPourSpot.mp4 -vcodec libx264 -crf 13 -preset veryfast -pix_fmt yuv420p priseVideoPourSpot3.mp4
+
