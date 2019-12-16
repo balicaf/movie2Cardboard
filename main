@@ -105,6 +105,7 @@ ffmpeg -i priseVideoPourSpot.mp4 -vcodec libx264 -crf 13 -preset veryfast -pix_f
 --to decode h265 10 bits--
 gst-launch-1.0 filesrc location=<filename_10bit.mkv> ! \
  matroskademux ! queue ! h265parse ! nvv4l2decoder ! nvvidconv ! \
+  'video/x-raw(memory:NVMM), format=(string)NV12' ! nv3dsink -e
  
  --to encode h265 10 bits --
  gst-launch-1.0 nvarguscamerasrc ! \
