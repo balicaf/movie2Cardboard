@@ -106,6 +106,7 @@ ffmpeg -i priseVideoPourSpot.mp4 -vcodec libx264 -crf 13 -preset veryfast -pix_f
 gst-launch-1.0 filesrc location=<filename_10bit.mkv> ! \
  matroskademux ! queue ! h265parse ! nvv4l2decoder ! nvvidconv ! \
   'video/x-raw(memory:NVMM), format=(string)NV12' ! nv3dsink -e
+  https://www.jetsonhacks.com/2014/10/16/gstreamer-xvimage/
   
   FILE=filename.mp4
 gst-launch-1.0 filesrc location=$FILE ! qtdemux ! queue ! h265parse ! omxh265dec ! nvoverlaysink
