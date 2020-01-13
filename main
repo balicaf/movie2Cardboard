@@ -121,4 +121,6 @@ gst-launch-1.0 filesrc location=$FILE ! qtdemux ! queue ! h265parse ! omxh265dec
  
  --side by side VR headset--
  https://lubosz.wordpress.com/2013/08/28/view-side-by-side-stereoscopic-video-with-gstreamer-and-oculus-rift/
+ 
+ https://github.com/fthiery/gst-oculus-fpv/blob/master/gst-oculus-fpv/gst-oculus-fpv.py
 
