@@ -8,5 +8,5 @@ for i in *.mkv;
  [tmp2]crop=iw*(1-0.045*2)+1:ih-1:iw*(0.045+0.002):1,scale=1920:-2[left];\
  [left][right]hstack" -c:v libx265 -crf 10 -preset medium \
  -pix_fmt yuv420p10le \
- -x265-params "colorprim=bt2020:transfer=smpte2084:colormatrix=bt2020nc" "${i}-sbs.mkv" 
+ -x265-params "colorprim=bt2020:transfer=smpte2084:colormatrix=bt2020nc" "sbs/${i}-sbs.mkv" 
 done
